@@ -12,10 +12,12 @@ public class Bumper : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (player1.Equals(true))
         {
-            transform.Translate(0f, Input.GetAxisRaw("Vertical") * speed * Time.deltaTime, 0f);
+            transform.Translate(0f, Input.GetAxisRaw("Vertical") *speed*Time.deltaTime,0f);
+                
         }
         else
         {
