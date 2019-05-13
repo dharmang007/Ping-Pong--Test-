@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,14 +7,17 @@ using UnityEngine.SceneManagement;
 public class Ball : MonoBehaviour {
 
     // Use this for initialization
-
-    public float speed =5f;
+    private AudioSource hitSound;
+    public GameObject gameManager;
+    public GameObject weed;
+    public float speed =4f;
+   
 	void Start ()
     {
-     
-        float sx = Random.Range(0, 1) < 0.5 ? -80f : 80f;
-        float sy = Random.Range(0, 1) < 0.5 ? -10f : 10f;
-
+        
+        hitSound = GetComponent<AudioSource>();
+        float sx = UnityEngine.Random.Range(0, 1) < 0.5 ? -80f : 80f;
+        float sy = UnityEngine.Random.Range(0, 1) < 0.5 ? -10f : 10f;
         GetComponent<Rigidbody2D>().AddForce(new Vector2(sx, sy));
 
 	}
@@ -21,15 +25,24 @@ public class Ball : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.position.x, transform.position.y));    
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("DeathZone1") ||
             collision.gameObject.tag.Equals("DeathZone2"))
+        {   
+            gameManager.GetComponent<GameOver>().SetGameOverScreen();
+            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            this.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+
+        }
+        else if(collision.gameObject.tag.Equals("Player1") || collision.gameObject.tag.Equals("Player2"))
         {
-            SceneManager.LoadScene(0);
+            hitSound.Play();
+        }
+        else if(collision.gameObject.tag.Equals("Weed"))
+        {
+
         }
     }
 }

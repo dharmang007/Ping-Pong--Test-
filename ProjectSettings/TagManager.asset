@@ -9,6 +9,7 @@ TagManager:
   - ball
   - DeathZone1
   - DeathZone2
+  - Weed
   layers:
   - Default
   - TransparentFX
