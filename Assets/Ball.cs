@@ -9,23 +9,26 @@ public class Ball : MonoBehaviour {
     // Use this for initialization
     private AudioSource hitSound;
     public GameObject gameManager;
-    public GameObject weed;
+    //public GameObject weed;
     public float speed =4f;
-   
-	void Start ()
+    	
+	// Update is called once per frame
+	void Update ()
     {
-        
+
+    }
+
+    public void StartGame()
+    {
+        //this.Start();
+        gameObject.SetActive(true);
+        gameObject.transform.position = new Vector2(0f,0f);
         hitSound = GetComponent<AudioSource>();
         float sx = UnityEngine.Random.Range(0, 1) < 0.5 ? -80f : 80f;
         float sy = UnityEngine.Random.Range(0, 1) < 0.5 ? -10f : 10f;
         GetComponent<Rigidbody2D>().AddForce(new Vector2(sx, sy));
-
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("DeathZone1") ||
@@ -40,9 +43,6 @@ public class Ball : MonoBehaviour {
         {
             hitSound.Play();
         }
-        else if(collision.gameObject.tag.Equals("Weed"))
-        {
 
-        }
     }
 }
